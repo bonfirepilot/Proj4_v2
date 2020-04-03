@@ -1,20 +1,27 @@
-def fibonacci(n): 
-    a = 0
-    b = 1
-    if n < 0: 
-        print("Incorrect input") 
-    elif n == 0: 
-        return a 
-    elif n == 1: 
-        return b 
-    else: 
-        for i in range(2,n+1): 
-            c = a + b 
-            a = b 
-            b = c 
-        return b 
-  
-# Driver Program 
-  
-print(fibonacci(9)) 
+from flask import Flask, request
+app = Flask(__name__)
+
+# The Fibonacci function
+def fibo(n: int):
+    """
+    Calculating the fibonacci numbers
+    """
+    if n < 1:
+        return 0
+    elif n == 1:
+        return 1
+    else:
+        return fibo(n-1)+fibo(n-2)
+
+# The actual route
+@app.route("/")
+def send_fibo():
+    """
+    Sending the fibonacci number to the user, telling him if
+    he uses improper input
+    """
+    try:
+        return str(fibo(int(request.args['n'])))
+    except ValueError:
+        return "Please use a number as the 'n' argument"
   
