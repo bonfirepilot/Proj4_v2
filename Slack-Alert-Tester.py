@@ -1,6 +1,6 @@
 import requests
 import json
-web_hook_url = 'https://hooks.slack.com/services/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'
+web_hook_url = 'Have the location'
 
 x = 6
 
