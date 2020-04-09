@@ -20,6 +20,24 @@ def hello():
         for i in range(1, factorial + 1):
             fact = fact*1
         print("The factorial of",factorial,"is",fact)
+ 
+
+ #This is for the Is Prime section of the project
+@app.route('/isprime/<num>')
+def is_prime(num):
+    if num < 2:
+        return 'Enter number larger than 1'
+    else:
+        for x in range(2,num):
+            if num % x == 0:
+               return 'Not prime'
+        return 'Is prime'
+    #returns Is Prime 
+
+    
+if __name__ == "__main__":
+    app.debug = True 
+    app.run('0.0.0.0')
 
     #return f'Hello, {escape(name)}!'
     return 'factorial'
