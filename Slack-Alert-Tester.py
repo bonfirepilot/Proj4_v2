@@ -1,6 +1,6 @@
 import requests
 import json
-web_hook_url = 'Have the location'
+web_hook_url = 'Have the webhook saved on my computer and will put it in later'
 
 x = 6
 
