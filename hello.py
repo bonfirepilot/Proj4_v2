@@ -25,14 +25,20 @@ def send_Fact1(n):
         "output": str(Fact1(n))
     }
     return json.dumps(output)
- 
-@app.route("/md5/<str:v>")
-def md5_str(v):
-    # val = request.args.get("str")
-    m = hashlib.md5()
-    m.update(v.encode('utf8'))
+@app.route("/factorial/<n>")
+def not_Fact1(n):
     output = {
-        "input": v,
+        "input": n,
+        "output": "This is not a number"
+    }
+    return json.dumps(output)
+@app.route('/md5/<val>')
+def md5_str(val: str):
+    m = hashlib.md5()
+    m.update(val.encode('utf8'))
+
+    output = {
+        "input": val,
         "output": m.hexdigest()
     }
     return json.dumps(output)
@@ -61,6 +67,13 @@ def send_fibo(n):
         "output": str(fibo(n))
     }
     return json.dumps(output)
+@app.route("/fibonacci/<n>")
+def not_fibo(n):
+    output = {
+        "input": n,
+        "output": "This is not a number"
+    }
+    return json.dumps(output)
 def prime(n: int):
     if n > 1:
        for i in range(2, n//2):
@@ -75,6 +88,13 @@ def send_prime(n):
     output = {
         "input": n, 
         "output": str(prime(n))
+    }
+    return json.dumps(output)
+@app.route("/is-prime/<n>")
+def not_prime(n):
+    output = {
+        "input": n,
+        "output": "this is not a number"
     }
     return json.dumps(output)
 if __name__ == '__main__':
