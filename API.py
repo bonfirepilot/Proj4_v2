@@ -45,26 +45,6 @@ def md5_str(val: str):
         "output": m.hexdigest()
     }
     return json.dumps(output)
-
-# The Fibonacci function
-def fibo(n: int):
-    """
-    Calculating the fibonacci numbers
-    """
-    if n < 1:
-        return 0
-    elif n == 1:
-        return 1
-    else:
-        return fibo(n-1)+fibo(n-2)
-    nterms = int(request.args('n'))
-    if nterms <=0:
-        return False
-    else:
-        a=[]
-        for i in range(nterms):
-            a.append(fibo(i))
-        return "sequence =" + request.args['n'] + str(a)
 @app.route("/fibonacci/<int:n>")
 def fibo_send(n: int):
     def fibo(n):
@@ -86,10 +66,6 @@ def fibo_send(n: int):
         "output": fib_print
     }
     return json.dumps(output)
-
-
-
-
 @app.route("/fibonacci/<n>")
 def not_fibo(n):
     output = {
