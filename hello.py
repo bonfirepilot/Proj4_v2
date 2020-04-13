@@ -1,6 +1,9 @@
 from flask import Flask, escape, request
+from urllib import request, parse
 import hashlib
 import json
+import os
+
 
 app = Flask(__name__)
 
@@ -97,5 +100,27 @@ def not_prime(n):
         "output": "this is not a number"
     }
     return json.dumps(output)
+@app.route("/slack-alert/<text>")
+def send_message_to_slack(text: str):
+
+    post = {"text": "{0}".format(text)}
+
+    try:
+        json_data = json.dumps(post)
+        req = request.Request("https://hooks.slack.com/services/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",
+                              data=json_data.encode('ascii'),
+                              headers={'Content-Type': 'application/json'}) 
+        resp = request.urlopen(req)
+    except Exception as em:
+        print("EXCEPTION: " + str(em))
+    output = {
+        "input": text,
+        "output": "sent message"
+    }
+    return json.dumps(output)
+    send_message_to_slack("<text>")
+
+
+
 if __name__ == '__main__':
     app.run(debug=True)
