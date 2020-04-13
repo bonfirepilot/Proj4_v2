@@ -4,3 +4,5 @@ WORKDIR /app
 RUN pip install -r requirements.txt
 EXPOSE 5000
 CMD python ./API.py
+CMD docker build -t flask-api-app
+CMD docker run flask-api-app
