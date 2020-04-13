@@ -14,6 +14,7 @@ def root():
 def Fact1(n: int):
     fact = 1
     if n < 0:
+
         return False
     elif n == 0:
         return False
@@ -32,6 +33,7 @@ def send_Fact1(n):
 def not_Fact1(n):
     output = {
         "input": n,
+
         "output": False
     }
     return json.dumps(output)
@@ -75,7 +77,6 @@ def fibo(n: int):
         return 1
     else:
         return fibo(n-1)+fibo(n-2)
-
 # The actual route
 @app.route("/fibonacci/<int:n>")
 def send_fibo(n):
@@ -141,4 +142,4 @@ def send_message_to_slack(text: str):
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=False, host='0.0.0.0')
