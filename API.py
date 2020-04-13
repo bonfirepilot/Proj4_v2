@@ -1,4 +1,4 @@
-from flask import Flask, escape, request
+from flask import Flask, escape, request, jsonify
 from urllib import request, parse
 import hashlib
 import json
@@ -14,13 +14,13 @@ def root():
 def Fact1(n: int):
     fact = 1
     if n < 0:
-        return("Sorry, Factorial does not exist")
+        return False
     elif n == 0:
-        return("The factorial of 0 is 1")
+        return False
     else:
         for i in range(1, n + 1):
             fact = fact*i
-        return("The factorial of",n,"is",fact)
+        return fact
 @app.route("/factorial/<int:n>")
 def send_Fact1(n):
     output = {
@@ -32,7 +32,7 @@ def send_Fact1(n):
 def not_Fact1(n):
     output = {
         "input": n,
-        "output": "This is not a number"
+        "output": False
     }
     return json.dumps(output)
 @app.route('/md5/<val>')
@@ -57,19 +57,39 @@ def fibo(n: int):
         return 1
     else:
         return fibo(n-1)+fibo(n-2)
-
-# The actual route
+    nterms = int(request.args('n'))
+    if nterms <=0:
+        return False
+    else:
+        a=[]
+        for i in range(nterms):
+            a.append(fibo(i))
+        return "sequence =" + request.args['n'] + str(a)
 @app.route("/fibonacci/<int:n>")
-def send_fibo(n):
-    """
-    Sending the fibonacci number to the user, telling him if
-    he uses improper input
-    """
+def fibo_send(n: int):
+    def fibo(n):
+        if n < 1:
+            return 0
+        elif n == 1:
+            return 1
+        else:
+            return fibo(n-1)+fibo(n-2)
+    fib_list = []
+    for iter in range(int(n)):
+        fib_list.append(fibo(iter))
+    global fib_print
+    fib_print = []
+    for k in fib_list:
+        fib_print.append(str(k))
     output = {
         "input": n, 
-        "output": str(fibo(n))
+        "output": fib_print
     }
     return json.dumps(output)
+
+
+
+
 @app.route("/fibonacci/<n>")
 def not_fibo(n):
     output = {
@@ -81,11 +101,11 @@ def prime(n: int):
     if n > 1:
        for i in range(2, n//2):
           if(n % i) == 0:
-             return(n, "is not a prime number")
+             return False
        else:
-         return(n, "is a prime number")
+         return n
     else:
-      return(n, "is not a prime number")
+      return False
 @app.route("/is-prime/<int:n>")
 def send_prime(n):
     output = {
@@ -97,7 +117,7 @@ def send_prime(n):
 def not_prime(n):
     output = {
         "input": n,
-        "output": "this is not a number"
+        "output": False
     }
     return json.dumps(output)
 @app.route("/slack-alert/<text>")
@@ -123,4 +143,4 @@ def send_message_to_slack(text: str):
 
 
 if __name__ == '__main__':
-    app.run(debug=False, host='0.0.0.0')
+    app.run(debug=True)
