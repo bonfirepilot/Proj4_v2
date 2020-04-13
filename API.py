@@ -1,4 +1,4 @@
-from flask import Flask, escape, request
+from flask import Flask, escape, request, jsonify
 from urllib import request, parse
 import hashlib
 import json
@@ -14,7 +14,6 @@ def root():
 def Fact1(n: int):
     fact = 1
     if n < 0:
-
         return False
     elif n == 0:
         return False
@@ -33,7 +32,6 @@ def send_Fact1(n):
 def not_Fact1(n):
     output = {
         "input": n,
-
         "output": False
     }
     return json.dumps(output)
@@ -67,28 +65,31 @@ def fibo(n: int):
         for i in range(nterms):
             a.append(fibo(i))
         return "sequence =" + request.args['n'] + str(a)
-def fibo(n: int):
-    """
-    Calculating the fibonacci numbers
-    """
-    if n < 1:
-        return 0
-    elif n == 1:
-        return 1
-    else:
-        return fibo(n-1)+fibo(n-2)
-# The actual route
 @app.route("/fibonacci/<int:n>")
-def send_fibo(n):
-    """
-    Sending the fibonacci number to the user, telling him if
-    he uses improper input
-    """
+def fibo_send(n: int):
+    def fibo(n):
+        if n < 1:
+            return 0
+        elif n == 1:
+            return 1
+        else:
+            return fibo(n-1)+fibo(n-2)
+    fib_list = []
+    for iter in range(int(n)):
+        fib_list.append(fibo(iter))
+    global fib_print
+    fib_print = []
+    for k in fib_list:
+        fib_print.append(str(k))
     output = {
         "input": n, 
-        "output": str(fibo(n))
+        "output": fib_print
     }
     return json.dumps(output)
+
+
+
+
 @app.route("/fibonacci/<n>")
 def not_fibo(n):
     output = {
@@ -142,4 +143,4 @@ def send_message_to_slack(text: str):
 
 
 if __name__ == '__main__':
-    app.run(debug=False, host='0.0.0.0')
+    app.run(debug=True)
