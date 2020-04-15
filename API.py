@@ -111,7 +111,7 @@ def send_message_to_slack(text: str):
         print("EXCEPTION: " + str(em))
     output = {
         "input": text,
-        "output": "sent message"
+        "output": True
     }
     return json.dumps(output)
     send_message_to_slack("<text>")
