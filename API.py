@@ -67,7 +67,7 @@ def prime(n: int):
         else:
             return True
     if n == 1:
-        return True
+        return False
 @app.route("/is-prime/<int:n>")
 def send_prime(n):
     output = {
