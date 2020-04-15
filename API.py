@@ -89,13 +89,6 @@ def send_prime(n):
         "output": True
     }
     return json.dumps(output)
-@app.route("/is-prime/<n>")
-def not_prime(n):
-    output = {
-        "input": n,
-        "output": False
-    }
-    return json.dumps(output)
 @app.route("/slack-alert/<text>")
 def send_message_to_slack(text: str):
 
