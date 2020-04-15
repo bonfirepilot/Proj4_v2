@@ -41,22 +41,17 @@ def md5_str(val: str):
 @app.route("/fibonacci/<int:n>")
 def fibo_send(n: int):
     def fibo(n):
-        if n < 1:
-            return 0
-        elif n == 1:
-            return 1
-        else:
-            return fibo(n-1)+fibo(n-2)
-    fib_list = []
-    for iter in range(int(n)):
-        fib_list.append(fibo(iter))
-    global fib_print
-    fib_print = []
-    for k in fib_list:
-        fib_print.append(int(k))
+        a, b = 0, 1
+        array = [0]
+        while b <= n:
+            array.append(b)
+            a, b = b, a+b
+        return array
+        for i in range(0, len(array)):
+            array[i] = str(array[i])
     output = {
         "input": n, 
-        "output": fib_print
+        "output": (fibo(n))
     }
     return json.dumps(output)
 def prime(n: int):
