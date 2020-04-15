@@ -49,9 +49,9 @@ def md5_str(val: str):
 def fibo_send(n: int):
     def fibo(n):
         if n < 1:
-            return 0
+            return False
         elif n == 1:
-            return 1
+            return False
         else:
             return fibo(n-1)+fibo(n-2)
     fib_list = []
@@ -70,7 +70,7 @@ def fibo_send(n: int):
 def not_fibo(n):
     output = {
         "input": n,
-        "output": "This is not a number"
+        "output": False
     }
     return json.dumps(output)
 def prime(n: int):
