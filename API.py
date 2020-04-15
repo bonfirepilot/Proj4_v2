@@ -61,20 +61,18 @@ def fibo_send(n: int):
     return json.dumps(output)
 def prime(n: int):
     if n > 1:
-       for i in range(2,n):
-          if(n % i) == 0:
-             return False
-       else:
-         return n
-    else:
-      return False
+        for i in range(2,n):
+            if (n % i) == 0:
+                return False
+        else:
+            return True
     if n == 1:
         return True
 @app.route("/is-prime/<int:n>")
 def send_prime(n):
     output = {
         "input": n, 
-        "output": True
+        "output": (prime(n))
     }
     return json.dumps(output)
 @app.route("/slack-alert/<text>")
