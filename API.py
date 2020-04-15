@@ -28,13 +28,6 @@ def send_Fact1(n):
         "output": int(Fact1(n))
     }
     return json.dumps(output)
-@app.route("/factorial/<n>")
-def not_Fact1(n):
-    output = {
-        "input": n,
-        "output": 400
-    }
-    return json.dumps(output)
 @app.route('/md5/<val>')
 def md5_str(val: str):
     m = hashlib.md5()
@@ -66,22 +59,17 @@ def fibo_send(n: int):
         "output": fib_print
     }
     return json.dumps(output)
-@app.route("/fibonacci/<n>")
-def not_fibo(n):
-    output = {
-        "input": n,
-        "output": 400
-    }
-    return json.dumps(output)
 def prime(n: int):
     if n > 1:
-       for i in range(2, n//2):
+       for i in range(2,n):
           if(n % i) == 0:
              return False
        else:
          return n
     else:
       return False
+    if n == 1:
+        return True
 @app.route("/is-prime/<int:n>")
 def send_prime(n):
     output = {
