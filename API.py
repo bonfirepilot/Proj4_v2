@@ -16,7 +16,7 @@ def Fact1(n: int):
     if n < 0:
         return False
     elif n == 0:
-        return False
+        return 1
     else:
         for i in range(1, n + 1):
             fact = fact*i
@@ -32,7 +32,7 @@ def send_Fact1(n):
 def not_Fact1(n):
     output = {
         "input": n,
-        "output": False
+        "output": 400
     }
     return json.dumps(output)
 @app.route('/md5/<val>')
@@ -70,7 +70,7 @@ def fibo_send(n: int):
 def not_fibo(n):
     output = {
         "input": n,
-        "output": False
+        "output": 400
     }
     return json.dumps(output)
 def prime(n: int):
