@@ -25,7 +25,7 @@ def Fact1(n: int):
 def send_Fact1(n):
     output = {
         "input": n,
-        "output": str(Fact1(n))
+        "output": int(Fact1(n))
     }
     return json.dumps(output)
 @app.route("/factorial/<n>")
@@ -60,7 +60,7 @@ def fibo_send(n: int):
     global fib_print
     fib_print = []
     for k in fib_list:
-        fib_print.append(str(k))
+        fib_print.append(int(k))
     output = {
         "input": n, 
         "output": fib_print
@@ -86,7 +86,7 @@ def prime(n: int):
 def send_prime(n):
     output = {
         "input": n, 
-        "output": str(prime(n))
+        "output": int(prime(n))
     }
     return json.dumps(output)
 @app.route("/is-prime/<n>")
