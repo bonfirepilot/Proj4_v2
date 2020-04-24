@@ -111,14 +111,14 @@ def keyval(str):
     
     if request.method=='GET':
         output['value'] = str
-        output['command'] = "Get" str
+        output['command'] = "Get str"
         output['result'] = True
         return jsonify(output), 200
     else:
         #delete value
         output['key'] = None
         output['value'] = None
-        output['command'] = "Delete" str
+        output['command'] = "Delete str"
         output['result'] = True
         return jsonify(output), 200
 
