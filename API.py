@@ -1,11 +1,16 @@
+import os
+from math import sqrt
 from flask import Flask, escape, request, jsonify
 from urllib import request, parse
 import hashlib
+import redis
 import json
 import os
 
 
+
 app = Flask(__name__)
+redis = Redis(host="redis", socket_connect_timeout=2, socket_timeout=2)
 
 @app.route('/')
 def root():
@@ -89,6 +94,36 @@ def send_message_to_slack(text: str):
     }
     return json.dumps(output)
     send_message_to_slack("<text>")
+@app.route('/keyval/<str>', methods=['GET', 'DELETE'])
+def keyval(str):
+    r = redis.Redis()
+    output = {
+        'key': str,
+        'value': None,
+        'command': 'read' if request.method=='GET' else 'DELETE',
+        'result': False,
+        'error': None
+    }
+    ##get input and check if the key exists
+    if r.exist(str) == 0:
+        output['error'] = "404 Key does not exist"
+        return jsonify(output), 404
+    
+    if request.method=='GET':
+        output['value'] = str
+        output['command'] = "Get" str
+        output['result'] = True
+        return jsonify(output), 200
+    else:
+        #delete value
+        output['key'] = None
+        output['value'] = None
+        output['command'] = "Delete" str
+        output['result'] = True
+        return jsonify(output), 200
+
+
+
 
 
 
