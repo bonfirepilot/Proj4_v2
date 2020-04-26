@@ -175,7 +175,7 @@ def keyvalue_retrieve(key):
     _JSON = {
         'key': key,
         'value': None,
-        'command': "{} {}".format('RETRIEVE' if response.method=='GET' else 'DELETE', key)
+        'command': "{} {}".format('RETRIEVE' if response.method=='GET' else 'DELETE', key),
         'result': False,
         'error': None
     }
