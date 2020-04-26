@@ -102,7 +102,7 @@ def key_value():
     _JSON = {
         'key': None,
         'value': None,
-        'command': "CREATE" if request.method=='POST' else 'UPDATE',
+        'command': "CREATE" if request.methods=='POST' else 'UPDATE',
         'result': False,
         'error': None
     }
@@ -150,7 +150,7 @@ def keyvalue_retrieve(key):
     _JSON = {
         'key': key,
         'value': None,
-        'command': "{} {}".format('RETRIEVE' if requests.method=='GET' else 'DELETE', key),
+        'command': "{} {}".format('RETRIEVE' if requests.methods=='GET' else 'DELETE', key),
         'result': False,
         'error': None
     }
