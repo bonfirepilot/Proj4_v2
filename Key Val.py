@@ -101,4 +101,4 @@ def post_to_slack(msg):
         input=msg,
         message=mesg,
         output=result
-    ), 200 if resp.status_code==200 else 400
+    ), 200 if resp.status_code== 200 else 400
