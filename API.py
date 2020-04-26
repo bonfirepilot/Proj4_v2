@@ -3,10 +3,11 @@ from math import sqrt
 from flask import Flask, escape, request, jsonify
 from urllib import request, parse
 import hashlib
-import redis
+from redis import Redis, RedisError
 import json
 import os
 
+redis = Redis(host="redis", socket_connect_timeout=2, socket_timeout=2)
 
 app = Flask(__name__)
 #redis = Redis(host="redis", socket_connect_timeout=2, socket_timeout=2)
