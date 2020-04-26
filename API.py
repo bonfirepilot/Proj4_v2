@@ -3,7 +3,7 @@ from math import sqrt
 from flask import Flask, escape, request, jsonify
 from urllib import request, parse
 import hashlib
-From Redis import redis, Redis
+From redis
 import json
 import os
 
