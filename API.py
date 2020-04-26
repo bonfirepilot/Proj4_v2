@@ -155,8 +155,7 @@ def key_value():
         return jsonify(_JSON), 409
 
 
-    else:
-        if request.method == 'PUT' and test_value == None:
+    elif request.method == 'PUT' and test_value == None:
         _JSON['error'] = "Cannot update record: key does not exist."
         return jsonify(_JSON), 404
 
@@ -201,8 +200,7 @@ def keyvalue_retrieve(key):
         return jsonify(_JSON), 200
 
 
-    else:
-        if response.method == 'DELETE':
+    elif response.method == 'DELETE':
         ret = redis.delete(key)
         if ret == 1:
             _JSON['result'] = True
