@@ -1,5 +1,4 @@
 FROM python:3.8
-FROM redis 
 COPY . /apiapp
 WORKDIR /apiapp
 RUN pip install -r requirements.txt
