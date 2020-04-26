@@ -1,9 +1,14 @@
-version: '3'
+version: "3.4"
 services:
-    redis:
-        image: redis:latest
+    web:
+        image: bblakemore312/group2_project4
         ports:
-            - 6379:6379
-        volumes:
-            - ./config/redis.conf:/redis.conf
-        command: [ "redis-server", "/redis.conf" ]
+            - "5000:5000"
+        networks:
+            - webnet
+    redis:
+        image: redis
+        networks:
+            - webnet
+networks:
+    webnet:
