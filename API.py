@@ -4,6 +4,7 @@ from flask import Flask, escape, request, jsonify
 from urllib import request, parse
 import hashlib
 from redis import Redis, RedisError
+from requests import *
 import json
 import os
 import requests
