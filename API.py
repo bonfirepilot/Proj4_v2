@@ -3,13 +3,13 @@ from math import sqrt
 from flask import Flask, escape, request, jsonify
 from urllib import request, parse
 import hashlib
-import Redis
+import redis
 import json
 import os
 
 
 app = Flask(__name__)
-redis = Redis(host="redis", socket_connect_timeout=2, socket_timeout=2)
+#redis = Redis(host="redis", socket_connect_timeout=2, socket_timeout=2)
 
 @app.route('/')
 def root():
