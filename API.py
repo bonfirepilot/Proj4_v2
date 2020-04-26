@@ -95,79 +95,52 @@ def send_message_to_slack(text: str):
     }
     return json.dumps(output)
     send_message_to_slack("<text>")
-#@app.route('/keyval/<str>', methods=['GET', 'DELETE'])
-#def keyval(str):
-    #r = redis.Redis()
-   # output = {
-       # 'key': str,
- ##       'value': None,
-  #      'command': 'read' if request.method=='GET' else 'DELETE',
-#        'result': False,
-#        'error': None
-#    }
-##    ##get input and check if the key exists
- #   if r.exist(str) == 0:
- #       output['error'] = "404 Key does not exist"
- #       return jsonify(output), 404
- #   
-#    if request.method=='GET':
-#        output['value'] = str
-   #     output['command'] = "Get str"
-    #    output['result'] = True
-     #   return jsonify(output), 200
- #   else:
-        #delete value
-  #      output['key'] = None
-  #      output['value'] = None
-   #     output['command'] = "Delete str"
-    #    output['result'] = True
-   #     return jsonify(output), 200
-# @app.route('/keyval', methods=['POST', 'PUT'])
-# def key_value():
+@app.route('/keyval', methods=['POST', 'PUT'])
+def key_value():
 
-#     _JSON = {
-#         'key': None,
-#         'value': None,
-#         'command': 'CREATE' if request.method=='POST' else 'UPDATE',
-#         'result': False,
-#         'error': None
-#     }
+    _JSON = {
+        'key': None,
+        'value': None,
+        'command': 'CREATE' if request.method=='POST' else 'UPDATE',
+        'result': False,
+        'error': None
+    }
 
 
-#     try:
-#         payload = request.get_json()
-#         _JSON['key'] = payload['key']
-#         _JSON['value'] = payload['value']
-#         _JSON['command'] += f" {payload['key']}/{payload['value']}"
-#     except:
-#         _JSON['error'] = "Missing JSON."
-#         return jsonify(_JSON), 400
+    try:
+        payload = request.get_json()
+        _JSON['key'] = payload['key']
+        _JSON['value'] = payload['value']
+        _JSON['command'] += f" {payload['key']}/{payload['value']}"
+    except:
+        _JSON['error'] = "Missing JSON."
+        return jsonify(_JSON), 400
 
 
-#     try:
-#         test_value = redis.get(_JSON['key'])
-#     except RedisError:
-#         _JSON['error'] = "Cannot connect to redis."
-#         return jsonify(_JSON), 400
+    try:
+        test_value = redis.get(_JSON['key'])
+    except RedisError:
+        _JSON['error'] = "Cannot connect to redis."
+        return jsonify(_JSON), 400
 
 
-#     if request.method == 'POST' and not test_value == None:
-#         _JSON['error'] = "Cannot create new record: key already exists."
-#         return jsonify(_JSON), 409
+    if request.method == 'POST' and not test_value == None:
+        _JSON['error'] = "Cannot create new record: key already exists."
+        return jsonify(_JSON), 409
 
 
-#     elif request.method == 'PUT' and test_value == None:
-#         _JSON['error'] = "Cannot update record: key does not exist."
-#         return jsonify(_JSON), 404
+    elif request.method == 'PUT' and test_value == None:
+        _JSON['error'] = "Cannot update record: key does not exist."
+        return jsonify(_JSON), 404
 
 
-#     else:
-#         if redis.set(_JSON['key'], _JSON['value']) == False:
-#             _JSON['error'] = "There was a problem creating the value in Redis."
-#             return jsonify(_JSON), 400
-#         else:
-#             _JSON['result'] = True
-#             return jsonify(_JSON), 200
+    else:
+        if redis.set(_JSON['key'], _JSON['value']) == False:
+            _JSON['error'] = "There was a problem creating the value in Redis."
+            return jsonify(_JSON), 400
+        else:
+            _JSON['result'] = True
+            return jsonify(_JSON), 200
 
 
 @app.route('/keyval/<string:key>', methods=['GET', 'DELETE'])
@@ -176,7 +149,7 @@ def keyvalue_retrieve(key):
     _JSON = {
         'key': key,
         'value': None,
-        'command': ('RETRIEVE' if response.method=='GET' else 'DELETE', key),
+        'command': "{} {}".format('RETRIEVE' if response.method=='GET' else 'DELETE', key)
         'result': False,
         'error': None
     }
