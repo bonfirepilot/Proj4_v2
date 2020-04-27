@@ -122,7 +122,7 @@ def record():
 		return json.dumps({"output": False, "error": err})
 		
 
-@app.route('/kv-retrieve/<string:key>')
+@app.route('/keyval/<string:key>')
 def retrieve(key):
 	try:
 		if db.exists(key):
