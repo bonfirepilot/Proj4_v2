@@ -96,7 +96,7 @@ def send_message_to_slack(text: str):
     }
     return json.dumps(output)
     send_message_to_slack("<text>")
-@app.route('/keyval/', methods = ["POST", "PUT"])
+@app.route('/kv-record/', methods = ["POST", "PUT"])
 def record():
 	try:
 		data = request.json
